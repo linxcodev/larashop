@@ -1,6 +1,7 @@
 @extends("layouts.global")
 
 @section("title") Create User @endsection
+@section("pageTitle") Create User @endsection
 @section("content")
   <div class="col-md-8">
     @if(session('status'))
@@ -19,7 +20,7 @@
 
       <label for="username">Username</label>
       <input class="form-control" placeholder="username" type="text" name="username"
-        id="username"/>
+        id="username" value=""/>
 
       <br>
 

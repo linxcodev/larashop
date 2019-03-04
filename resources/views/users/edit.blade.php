@@ -1,6 +1,7 @@
 @extends('layouts.global')
 
 @section('title') Edit User @endsection
+@section("pageTitle") Create User @endsection
 @section('content')
   @if(session('status'))
     <div class="alert alert-success">
