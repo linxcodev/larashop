@@ -13,11 +13,11 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-      $categories = \App\Category::paginate(10);
+      $categories = \App\Category::paginate(3);
       $filterKeyword = $request->get('name');
 
       if($filterKeyword){
-        $categories = \App\Category::where("name", "LIKE", "%$filterKeyword%")->paginate(10);
+        $categories = \App\Category::where("name", "LIKE", "%$filterKeyword%")->paginate(3);
       }
 
       return view('categories.index', ['categories' => $categories]);
@@ -168,5 +168,13 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')->with('status',
                'Category permanently deleted');
       }
+    }
+
+    public function ajaxSearch(Request $request)
+    {
+      $keyword = $request->get('q');
+      $categories = \App\Category::where("name", "LIKE", "%$keyword%")->get();
+
+      return $categories;
     }
 }

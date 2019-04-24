@@ -42,7 +42,7 @@
       </a>
     </div>
   </div>
-  
+
   <br>
 
   <div class="row">
@@ -86,8 +86,10 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan="10">
-              {{$categories->appends(Request::all())->links()}}
+            <td colspan="4">
+              <ul class="pagination justify-content-center">
+                {{$categories->links()}}
+              </ul>
             </td>
           </tr>
         </tfoot>
