@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -41,6 +42,11 @@ class CategoryController extends Controller
      */
      public function store(Request $request)
      {
+       \Validator::make($request->all(), [
+         "name" => "required|min:3|max:20",
+         "image" => "required"
+        ])->validate();
+
        $name = $request->get('name');
        $new_category = new \App\Category;
        $new_category->name = $name;
@@ -97,6 +103,15 @@ class CategoryController extends Controller
       $slug = $request->get('slug');
 
       $category = \App\Category::findOrFail($id);
+
+      \Validator::make($request->all(), [
+        "name" => "required|min:3|max:20",
+        "image" => "required",
+        "slug" => [
+          "required",
+          Rule::unique("categories")->ignore($category->slug, "slug")
+        ]
+      ])->validate();
 
       $category->name = $name;
       $category->slug = $slug;
